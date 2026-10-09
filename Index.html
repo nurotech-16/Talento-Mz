@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MZ TALENTO - O teu talento pode ser o teu trabalho</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0a588c;
+      --primary-dark: #073f66;
+      --accent: #e67e22;
+      --bg: #f4f7f9;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --light-text: #7f8c8d;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #d1d8e0;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background-color: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding-bottom: 70px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 20px 16px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .logo-area {
+      margin-bottom: 15px;
+    }
+
+    .logo-area h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-area p {
+      font-size: 13px;
+      opacity: 0.9;
+      font-style: italic;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+      background: white;
+      padding: 6px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .search-box button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .filter-select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(255,255,255,0.2);
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .filter-select option {
+      color: var(--text);
+      background: white;
+    }
+
+    /* Main Content */
+    main {
+      padding: 16px;
+      flex: 1;
+    }
+
+    .section-title {
+      font-size: 16px;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    /* Categories Grid */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .category-btn {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .category-btn i {
+      font-size: 20px;
+      color: var(--text);
+    }
+
+    .category-btn span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .category-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .category-btn.active i, .category-btn.active span {
+      color: white;
+    }
+
+    /* Cards */
+    .profile-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .details h3 {
+      font-size: 15px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .details .verified {
+      color: #27ae60;
+      font-size: 13px;
+    }
+
+    .details p {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .details .meta {
+      font-size: 12px;
+      color: var(--light-text);
+      font-weight: normal;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn-wa { background-color: #25d366; }
+    .btn-edit { background-color: #f39c12; }
+    .btn-delete { background-color: #e74c3c; }
+
+    /* Forms & Screens */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* Bottom Nav */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--light-text);
+      text-decoration: none;
+      font-size: 11px;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+    }
+
+    .alerta {
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .alerta.erro { background-color: #fde8e8; color: #e74c3c; }
+    .alerta.ok { background-color: #e8f8f0; color: #27ae60; }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <div class="logo-area">
+        <h1>MZ TALENTO</h1>
+        <p>"O teu talento pode ser o teu trabalho."</p>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="O que procuras? Ex.: tranças, bolo..." onkeyup="filtrar()">
+        <button onclick="filtrar()"><i class="fas fa-search"></i> Buscar</button>
+      </div>
+
+      <select id="bairroFilter" class="filter-select" onchange="filtrar()">
+        <option value="">Todos os bairros da Matola</option>
+        <option value="Infulene">Infulene</option>
+        <option value="Machava">Machava</option>
+        <option value="Matola Sede">Matola Sede</option>
+        <option value="Malhampsene">Malhampsene</option>
+        <option value="T-3">T-3</option>
+        <option value="Fomento">Fomento</option>
+      </select>
+    </header>
+
+    <main>
+      <!-- TELA PRINCIPAL -->
+      <section id="screen-inicio" class="screen active">
+        <h2 class="section-title">Categorias</h2>
+        <div class="categories-grid">
+          <div class="category-btn" onclick="filtrarCategoria('Beleza', this)"><i class="fas fa-cut"></i><span>Beleza</span></div>
+          <div class="category-btn" onclick="filtrarCategoria('Alimentacao', this)"><i class="fas fa-birthday-cake"></i><span>Alimentação</span></div>
+          <div class="category-btn" onclick="filtrarCategoria('Arte', this)"><i class="fas fa-palette"></i><span>Arte</span></div>
+          <div class="category-btn" onclick="filtrarCategoria('Tecnologia', this)"><i class="fas fa-laptop-code"></i><span>Tecnologia</span></div>
+          <div class="category-btn" onclick="filtrarCategoria('Educacao', this)"><i class="fas fa-book"></i><span>Educação</span></div>
+          <div class="category-btn" onclick="filtrarCategoria('Moda', this)"><i class="fas fa-tshirt"></i><span>Moda</span></div>
+          <div class="category-btn" onclick="filtrarCategoria('Servicos', this)"><i class="fas fa-tools"></i><span>Serviços</span></div>
+        </div>
+
+        <h2 class="section-title">Profissionais perto de ti</h2>
+        <div id="listaPerfis"></div>
+      </section>
+
+      <!-- TELA CRIAR PERFIL -->
+      <section id="screen-criar" class="screen">
+        <h2 class="section-title" id="tituloForm">Criar o teu Perfil Profissional</h2>
+        <div id="msgForm"></div>
+
+        <input type="hidden" id="editId">
+
+        <div class="form-group">
+          <label>Nome ou Nome da Marca *</label>
+          <input type="text" id="cNome" class="form-control" placeholder="Ex: Maria Tranças">
+        </div>
+
+        <div class="form-group">
+          <label>Serviço / Talento *</label>
+          <input type="text" id="cServ" class="form-control" placeholder="Ex: Tranças knotless, reparação de celulares">
+        </div>
+
+        <div class="form-group">
+          <label>Categoria *</label>
+          <select id="cCategoria" class="form-control">
+            <option value="Beleza">Beleza</option>
+            <option value="Alimentacao">Alimentação</option>
+            <option value="Arte">Arte</option>
+            <option value="Tecnologia">Tecnologia</option>
+            <option value="Educacao">Educação</option>
+            <option value="Moda">Moda</option>
+            <option value="Servicos">Serviços</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Preço estimado</label>
+          <input type="text" id="cPreco" class="form-control" placeholder="Ex: 500 MT / A combinar">
+        </div>
+
+        <div class="form-group">
+          <label>Bairro na Matola *</label>
+          <select id="cZona" class="form-control">
+            <option value="">Seleciona o Bairro</option>
+            <option value="Infulene">Infulene</option>
+            <option value="Machava">Machava</option>
+            <option value="Matola Sede">Matola Sede</option>
+            <option value="Malhampsene">Malhampsene</option>
+            <option value="T-3">T-3</option>
+            <option value="Fomento">Fomento</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Contacto WhatsApp (8x xxx xxxx) *</label>
+          <input type="tel" id="cTel" class="form-control" placeholder="841234567">
+        </div>
+
+        <div class="form-group">
+          <label>PIN / Palavra-passe de Edição * (Segurança)</label>
+          <input type="password" id="cPin" class="form-control" placeholder="Define 4 números (Ex: 1234)">
+          <small style="color: var(--light-text); font-size:11px;">Necessário para editar ou eliminar o teu perfil no futuro.</small>
+        </div>
+
+        <button class="btn-submit" onclick="salvarPerfil()">Publicar Perfil</button>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <div class="nav-item active" onclick="irPara('inicio', this)">
+        <i class="fas fa-home"></i>
+        <span>Início</span>
+      </div>
+      <div class="nav-item" onclick="prepararNovoPerfil(); irPara('criar', this)">
+        <i class="fas fa-plus-circle"></i>
+        <span>Criar Perfil</span>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'mztalento_perfis';
+
+    const perfisIniciais = [
+      { id: 1, nome: "Nuro tech", serv: "Técnico de aparelhos", cat: "Tecnologia", preco: "A combinar", zona: "Malhampsene", tel: "840000000", pin: "1234" }
+    ];
+
+    function obterPerfis() {
+      const dados = localStorage.getItem(STORAGE_KEY);
+      if(!dados) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(perfisIniciais));
+        return perfisIniciais;
+      }
+      return JSON.parse(dados);
+    }
+
+    function guardarPerfis(lista) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+    }
+
+    let categoriaAtiva = '';
+
+    function renderizar(lista) {
+      const el = document.getElementById('listaPerfis');
+      el.innerHTML = '';
+
+      if (lista.length === 0) {
+        el.innerHTML = '<p style="text-align:center; color: var(--light-text); margin-top:20px;">Nenhum profissional encontrado.</p>';
+        return;
+      }
+
+      lista.forEach(p => {
+        const precoTxt = p.preco ? `· ${p.preco}` : '';
+        const card = `
+          <div class="profile-card">
+            <div class="profile-info">
+              <div class="avatar"><i class="fas fa-user"></i></div>
+              <div class="details">
+                <h3>${p.nome} <i class="fas fa-check-circle verified"></i></h3>
+                <p><i class="fas fa-tools"></i> ${p.serv}</p>
+                <div class="meta"><i class="fas fa-map-marker-alt"></i> ${p.zona} ${precoTxt}</div>
+              </div>
+            </div>
+            <div class="action-btns">
+              <a class="btn-icon btn-wa" href="https://wa.me/258${p.tel}?text=Olá%20${encodeURIComponent(p.nome)},%20vi%20o%20teu%20perfil%20no%20MZ%20TALENTO!" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+              <button class="btn-icon btn-edit" onclick="iniciarEdicao(${p.id})"><i class="fas fa-edit"></i></button>
+              <button class="btn-icon btn-delete" onclick="eliminarPerfil(${p.id})"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+        el.innerHTML += card;
+      });
+    }
+
+    function filtrar() {
+      const busca = document.getElementById('searchInput').value.toLowerCase();
+      const bairro = document.getElementById('bairroFilter').value;
+
+      let perfis = obterPerfis();
+
+      perfis = perfis.filter(p => {
+        const mBusca = p.nome.toLowerCase().includes(busca) || p.serv.toLowerCase().includes(busca);
+        const mBairro = bairro === '' || p.zona === bairro;
+        const mCat = categoriaAtiva === '' || p.cat === categoriaAtiva;
+        return mBusca && mBairro && mCat;
+      });
+
+      renderizar(perfis);
+    }
+
+    function filtrarCategoria(cat, btn) {
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      if (categoriaAtiva === cat) {
+        categoriaAtiva = '';
+      } else {
+        categoriaAtiva = cat;
+        btn.classList.add('active');
+      }
+      filtrar();
+    }
+
+    function irPara(tela, navEl) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-' + tela).classList.add('active');
+
+      if(navEl) {
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navEl.classList.add('active');
+      }
+    }
+
+    function prepararNovoPerfil() {
+      document.getElementById('editId').value = '';
+      document.getElementById('tituloForm').innerText = 'Criar o teu Perfil Profissional';
+      document.getElementById('cNome').value = '';
+      document.getElementById('cServ').value = '';
+      document.getElementById('cPreco').value = '';
+      document.getElementById('cZona').value = '';
+      document.getElementById('cTel').value = '';
+      document.getElementById('cPin').value = '';
+      document.getElementById('msgForm').innerHTML = '';
+    }
+
+    function salvarPerfil() {
+      const editId = document.getElementById('editId').value;
+      const nome = document.getElementById('cNome').value.trim();
+      const serv = document.getElementById('cServ').value.trim();
+      const cat = document.getElementById('cCategoria').value;
+      const preco = document.getElementById('cPreco').value.trim();
+      const zona = document.getElementById('cZona').value;
+      const tel = document.getElementById('cTel').value.replace(/\D/g, '');
+      const pin = document.getElementById('cPin').value.trim();
+      const msgDiv = document.getElementById('msgForm');
+
+      if(!nome || !serv || !zona || !pin) {
+        msgDiv.innerHTML = '<div class="alerta erro">⚠️ Preenche o nome, o serviço, o bairro e o PIN de segurança.</div>';
+        return;
+      }
+
+      if(tel.length < 8 || tel.length > 9) {
+        msgDiv.innerHTML = '<div class="alerta erro">⚠️ O contacto deve ter 8 ou 9 dígitos (ex: 841234567).</div>';
+        return;
+      }
+
+      let perfis = obterPerfis();
+
+      if(editId) {
+        // Edição de perfil existente
+        const idx = perfis.findIndex(p => p.id == editId);
+        if(idx !== -1) {
+          perfis[idx] = { id: Number(editId), nome, serv, cat, preco, zona, tel, pin };
+        }
+      } else {
+        // Novo Perfil
+        perfis.unshift({ id: Date.now(), nome, serv, cat, preco, zona, tel, pin });
+      }
+
+      guardarPerfis(perfis);
+      msgDiv.innerHTML = '<div class="alerta ok">✓ Guardado com sucesso!</div>';
+
+      setTimeout(() => {
+        msgDiv.innerHTML = '';
+        irPara('inicio', document.querySelectorAll('.nav-item')[0]);
+        filtrar();
+      }, 1000);
+    }
+
+    function iniciarEdicao(id) {
+      const perfis = obterPerfis();
+      const perfil = perfis.find(p => p.id === id);
+      if(!perfil) return;
+
+      const pinDigitado = prompt("🔒 Digita o PIN de segurança para editar este perfil:");
+      if(pinDigitado !== perfil.pin) {
+        alert("❌ PIN incorreto! Não tens permissão para editar este perfil.");
+        return;
+      }
+
+      document.getElementById('editId').value = perfil.id;
+      document.getElementById('tituloForm').innerText = 'Editar Perfil';
+      document.getElementById('cNome').value = perfil.nome;
+      document.getElementById('cServ').value = perfil.serv;
+      document.getElementById('cCategoria').value = perfil.cat || 'Servicos';
+      document.getElementById('cPreco').value = perfil.preco || '';
+      document.getElementById('cZona').value = perfil.zona;
+      document.getElementById('cTel').value = perfil.tel;
+      document.getElementById('cPin').value = perfil.pin;
+
+      irPara('criar', document.querySelectorAll('.nav-item')[1]);
+    }
+
+    function eliminarPerfil(id) {
+      const perfis = obterPerfis();
+      const perfil = perfis.find(p => p.id === id);
+      if(!perfil) return;
+
+      const pinDigitado = prompt("🔒 Digita o PIN de segurança para ELIMINAR este perfil:");
+      if(pinDigitado !== perfil.pin) {
+        alert("❌ PIN incorreto! Não podes eliminar este perfil.");
+        return;
+      }
+
+      if(confirm(`Tem a certeza que deseja eliminar o perfil de "${perfil.nome}"?`)) {
+        const novosPerfis = perfis.filter(p => p.id !== id);
+        guardarPerfis(novosPerfis);
+        filtrar();
+      }
+    }
+
+    // Inicialização
+    filtrar();
+  </script>
+</body>
+</html>
